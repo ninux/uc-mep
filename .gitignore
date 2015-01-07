@@ -1,12 +1,12 @@
 # ignore LaTeX dumps
-.aux
-.log
-.out
-.toc
-.bbl
-.blg
-.lof
-.out
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.lof
+*.out
 
 # ignore swap files
 *.swp
