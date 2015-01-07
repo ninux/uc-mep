@@ -4,8 +4,7 @@ MAINFILE = mc-summary
 
 all:
 	pdflatex $(MAINFILE).tex
-	# there's no bib yet
-	# bibtex $(MAINFILE).aux
+	bibtex $(MAINFILE).aux
 	for i in {1..3}; do \
 		pdflatex $(MAINFILE).tex; \
 	done
