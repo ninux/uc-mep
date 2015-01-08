@@ -20,16 +20,30 @@
 
 void initPorts(void)
 {
+	// bitwise
+	PTFDD_PTFDD0 = 1;		// set pin 0 port F = OUT (LED B FL)	
+	PTFDD_PTFDD1 = 1;		// set pin 1 port F = OUT (LED R FL)
+	PTCDD_PTCDD4 = 1;		// set pin 4 port C = OUT (LED G FL)
+	
+	/* same with bytemask
 	PTFDD = PTFDD | 0x01;	// set pin 0 port F = OUT (LED B FL)
 	PTFDD = PTFDD | 0x02;	// set pin 1 port F = OUT (LED R FL)
 	PTCDD = PTCDD | 0x0F;	// set pin 4 port C = OUT (LED G FL)
+	*/
 }
 
 void set_B_FL(void)
 {
-	PTFD = PTFD & 0x01;	// set pin 0 port F = ON
-	PTFD = PTFD | 0x02;	// set pin 1 port F = OFF
-	PTCD = PTCD | 0x0F;	// set pin 4 port C = OFF
+	// bitwise
+	PTFD_PTFD0 = 0;			// set pin 0 port F = ON
+	PTFD_PTFD1 = 1;			// set pin 1 port F = OFF
+	PTCD_PTCD4 = 1;			// set pin 4 port C = OFF
+	
+	/* same with bytemask
+	PTFD = PTFD & 0xFE;		// set pin 0 port F = ON
+	PTFD = PTFD | 0x02;		// set pin 1 port F = OFF
+	PTCD = PTCD | 0x0F;		// set pin 4 port C = OFF
+	*/
 }
 
 void main(void) 
@@ -43,4 +57,3 @@ void main(void)
     	__RESET_WATCHDOG();	// feeds the dog
     }
 }
-
