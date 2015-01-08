@@ -26,7 +26,10 @@
 void LED_init(void)
 {
 	PTFDD = PTFDD | 0x01;	// set pin 0 port F = OUT (LED B FL)
-	PTFD = PTFD & 0xFE;		// set pin 0 port F = OFF
+	PTFD = PTFD & 0xFE;		// set pin 0 port F = ON
+	
+	PTFDD_PTFDD2 = 1;		// set pin 2 port F = OUT (LED R RF)
+	PTFD_PTFD2 = 1;			// set pin 2 port F = OFF
 }
 
 void timer1_init(void)
@@ -72,7 +75,9 @@ interrupt timer1_ch2_update(void)
 {
 	TPM1C2SC_CH2F = 0;			// reset interrupt channel flag
 	
-	TPM1C2V = TPM1CNT + TIME_1000MS;	// set the new value
+	TPM1C2V += TIME_1000MS;		// set the new value
+	
+	PTFD_PTFD2 = ~PTFD_PTFD2;	// toggle LED R RF
 }
 
 void main(void) 
