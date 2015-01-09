@@ -53,7 +53,7 @@ void change_pwm(void);
 interrupt timer1_ch2_isr(void)
 {
 	TPM1C2SC_CH2F = 0;		// clear channel flag
-	change_pwm();
+	change_pwm();			// change PWM duty cycle
 }
 
 void main(void) 
@@ -61,7 +61,7 @@ void main(void)
 	initPorts();
 	timer1_init();
 	timer1_ch2_init();
-	EnableInterrupts;	// enable interrupts
+	EnableInterrupts;		// enable interrupts
 
     for(;;) 
     {   
