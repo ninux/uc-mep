@@ -1,9 +1,21 @@
 \newpage
 \section{Timer}
 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\textwidth]{../fig/timer.pdf}
+
+	\includegraphics[width=1\textwidth]{../fig/pwm.pdf}
+	\caption{Übersicht der Timer-Register}
+\end{figure}
+
 \newpage
 \subsection{Beispiele}
 
 \subsubsection{Output Compare}
 \lstinputlisting[firstline=19, lastline=95, title=main.c]{../src/timer_oc/Sources/main.c}
 \lstinputlisting[firstline=60, lastline=60, title=Project.prm]{../src/timer_oc/Project_Settings/Linker_Files/Project.prm}
+
+\newpage
+\subsubsection{PWM}
+\lstinputlisting[firstline=19, lastline=70, title=main.c]{../src/timer_pwm_led/Sources/main.c}
