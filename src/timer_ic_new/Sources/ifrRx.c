@@ -85,18 +85,18 @@ interrupt void ifrFrontISR(void) // TPM1CH0
   static uint8 bitPos = 0;
   static uint8 bytePos = 0;
   rxBits rxBit;
-PTFD_PTFD1 = 0; // switch on led for debug purposes
-
 
   // @ToDo 2.) implement time measuring of pulse and pause 
   // pulse = ... [ticks]
   // pause = ... [ticks]
-
-	TPM1C0SC_CH0F = 0;
 	
-	if (PTED_PTED2) {
+  TPM1C0SC_CH0F = 0;
+  PTFD_PTFD1 = 0; // switch on led for debug purposes
+  
+  	if (PTED_PTED2) {
 		pulse = TPM1C0V - oldTicks;
 		oldTicks = TPM1C0V;
+		return;
 	} else {
 		pause = TPM1C0V - oldTicks;
 		oldTicks = TPM1C0V;

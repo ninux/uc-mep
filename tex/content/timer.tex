@@ -9,7 +9,20 @@
 	\caption{Übersicht der Timer-Register}
 \end{figure}
 
-\subsection{PWM}
+\newpage
+\subsection{Pitfalls}
+\begin{itemize}
+	\item Möchte man das Value Register eines Channels setzen, so darf
+		der Channel nicht im \emph{Input Capture} Modus sein. In
+		diesem Modus wird im Value Register das Snapshot des Counters
+		gespeichert bei einem Event.
+	\item Arbeitet man mit dem MODULO Wert, so muss dieser auf
+		Periodendauer-1 gesetzt werden, da das TOF erst beim
+		darauffolgenden Wert des MODULO auslöst.
+\end{itemize}
+
+\newpage
+\subsection{PWM Varianten}
 Ein PWM-Signal kann auf drei verschiedene Arten implmentiert werden
 \begin{enumerate}
 	\item Timer aufsetzen mit MODULO = Periodendauer, 
