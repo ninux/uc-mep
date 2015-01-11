@@ -11,9 +11,6 @@ void LED_init(void)
 	PTFD_PTFD1 = 0;			// LED R FL = ON
 }
 
-/**
- * main program
- */  
 void main(void) 
 {
 	LED_init();

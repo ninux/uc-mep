@@ -10,7 +10,7 @@
 **/Generated_Code
 **.apconfig
 **.traceConfig
-**/Project_Headers
+# **/Project_Headers
 **/Project_Settings
 **/.settings
 
