@@ -19,8 +19,14 @@
 #include "platform.h" /* include peripheral declarations */
 
 #define DEBUG
+#undef DEBUG
 #define I2C_SUCCESS 1
 #define I2C_FAIL 0
+
+#define QENC_ADDR			0x2A
+#define QENC_CTRL_ADDR		0x00
+#define QENC_CTRL_CONFIG	0b00011101
+#define QENC_CTRL_RESET		0x00
 
 void LED_init(void)
 {
@@ -75,6 +81,33 @@ int i2c_start(uint8 slave_addr, bool write)
 	return I2C_SUCCESS;
 }
 
+int i2c_repeated_start(uint8 slave_addr, bool write)
+{
+	IICC_RSTA = 1;		// generate repeated-start condition
+	
+	if (write) {		// [addr (7bit)] [R/W=0 (1bit)]
+			IICD = ((slave_addr<<1) & 0xFE);
+		} else {		// [addr (7bit)] [R/W=1 (1bit)]	
+			IICD = ((slave_addr<<1) | 0x01);
+		}
+	
+	while (!IICS_IICIF) {
+		// wait till transmission is done
+	}
+	
+	IICS_IICIF = 1;		// reset the I2C interrupt flag
+	
+	#ifdef DEBUG
+	
+	#else
+	if (IICS_RXAK) {	// if NACK
+		IICC1_MST = 0;	// generate stop condition
+		IICS_IICIF = 1;	// reset the I2C interrupt flag
+		return I2C_FAIL;
+	}
+	#endif
+}
+
 int i2c_send_byte(uint8 databyte)
 {
 	IICD = databyte;
@@ -111,6 +144,26 @@ int i2c_send_command(uint8 slave_addr, bool write, uint8 command)
 	}
 }
 
+void qenc_init(void)
+{
+	if (i2c_start(QENC_ADDR, 1)) {
+	    if (i2c_send_byte(QENC_CTRL_ADDR)) {
+	    	i2c_send_byte(QENC_CTRL_CONFIG);
+	    }
+	}
+	i2c_stop();
+}
+
+void qenc_reset(void)
+{
+	if (i2c_start(QENC_ADDR, 1)) {
+	    if (i2c_send_byte(QENC_CTRL_ADDR)) {
+	    	i2c_send_byte(QENC_CTRL_RESET);
+	    }
+	}
+	i2c_stop();
+}
+
 /**
  * main program
  */  
@@ -122,15 +175,10 @@ void main(void)
 
     for(;;) 
     {   
-    	i2c_start(0x3C, 0);
-		#ifdef DEBUG
-			PTFD_PTFD1 = 0;		// LED R FL = ON
-		#endif
-    	i2c_send_byte(0x55);
-		#ifdef DEBUG
-			PTFD_PTFD1 = 1;		// LED R FL = OFF
-		#endif
-    	i2c_stop();
+    	PTFD_PTFD1 = 0;		// LED R FL = ON
+    	PTFD_PTFD1 = 1;		// LED R FL = OFF
+    	
+    	qenc_init();
     	
     	__RESET_WATCHDOG();  	/* feeds the dog */
     }
