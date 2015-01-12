@@ -49,8 +49,8 @@ void timer1_ch5_init(void)	// used to measure the time
 
 interrupt void timer1_ch3_ISR(void)
 {
-	TPM1C3SC_CH3F = 0;				// reset the channel flag
-	TPM1C3V = TPM1CNT + time;		// set the new time
+	TPM1C3SC_CH3F = 0;			// reset the channel flag
+	TPM1C3V = TPM1CNT + time;	// set the new time
 }
 
 interrupt void timer1_ch5_ISR(void)
@@ -75,11 +75,11 @@ void main(void)
 	timer1_ch3_init();
 	timer1_ch5_init();
 	
-    EnableInterrupts;       /* Interrupts aktivieren */
+    EnableInterrupts;			// enable interrupts
 
     for(;;) 
     {   
-    	__RESET_WATCHDOG();  	/* feeds the dog */
+    	__RESET_WATCHDOG();		// feeds the dog
     }
     
   /* please make sure that you never leave main */

@@ -21,6 +21,31 @@
 		darauffolgenden Wert des MODULO auslöst.
 \end{itemize}
 
+\subsection{Clock \& Prescaler Einstellungen}
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{r r r r}
+		Clock-Quelle & Prescaler & Tick & Maximalwert \\
+		\hline
+		24 MHz & 1 & 0.041667 $\mu$s & 2730.666667 $\mu$s \\ 
+		24 MHz & 2 & 0.083333 $\mu$s & 5461.333333 $\mu$s \\ 
+		24 MHz & 4 & 0.166667 $\mu$s & 10922.666667 $\mu$s \\ 
+		24 MHz & 8 & 0.333333 $\mu$s & 21845.333333 $\mu$s \\ 
+		24 MHz & 16 & 0.666667 $\mu$s & 43690.666667 $\mu$s \\ 
+		24 MHz & 32 & 1.333333 $\mu$s & 87381.333333 $\mu$s \\ 
+		24 MHz & 64 & 2.666667 $\mu$s & 174762.666667 $\mu$s \\ 
+		24 MHz & 128 & 5.333333 $\mu$s & 349525.333333 $\mu$s \\ 
+		1 MHz & 1 & 1.000000 $\mu$s & 65536.000000 $\mu$s \\ 
+		1 MHz & 2 & 2.000000 $\mu$s & 131072.000000 $\mu$s \\ 
+		1 MHz & 4 & 4.000000 $\mu$s & 262144.000000 $\mu$s \\ 
+		1 MHz & 8 & 8.000000 $\mu$s & 524288.000000 $\mu$s \\ 
+		1 MHz & 16 & 16.000000 $\mu$s & 1048576.000000 $\mu$s \\ 
+		1 MHz & 32 & 32.000000 $\mu$s & 2097152.000000 $\mu$s \\ 
+		1 MHz & 64 & 64.000000 $\mu$s & 4194304.000000 $\mu$s \\ 
+		1 MHz & 128 & 128.000000 $\mu$s & 8388608.000000 $\mu$s \\ 
+	\end{tabular}
+\end{table}
+
 \newpage
 \subsection{PWM Varianten}
 Ein PWM-Signal kann auf drei verschiedene Arten implmentiert werden
@@ -54,6 +79,11 @@ Ein PWM-Signal kann auf drei verschiedene Arten implmentiert werden
 \subsubsection{Output Compare}
 \lstinputlisting[firstline=19, lastline=95, title=main.c]{../src/timer_oc/Sources/main.c}
 \lstinputlisting[firstline=60, lastline=60, title=Project.prm]{../src/timer_oc/Project_Settings/Linker_Files/Project.prm}
+
+\newpage
+\subsubsection{Input Capture}
+\lstinputlisting[title=main.c]{../src/timer_ic_01/Sources/main.c}
+\lstinputlisting[firstline=55, lastline=61, title=Project.prm]{../src/timer_ic_01/Project_Settings/Linker_Files/Project.prm}
 
 \begin{comment}
 \newpage
